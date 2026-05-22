@@ -1,4 +1,4 @@
-package com.pratica.crud_springbboot.controller;
+package com.pratica.crud_springbboot.infrastructure.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

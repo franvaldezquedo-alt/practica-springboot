@@ -1,3 +1,21 @@
 spring:
   application:
     name: crud-springbboot
+
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=tienda;encrypt=false;trustServerCertificate=true
+    username: sa
+    password: Wosito123*
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.SQLServerDialect
+
+server:
+  port: 8080
