@@ -1,6 +1,6 @@
 package com.pratica.crud_springbboot.application.services;
 
-import com.pratica.crud_springbboot.application.dto.responses.ProductListResponse;
+import com.pratica.crud_springbboot.application.dto.responses.ProductResponse;
 import com.pratica.crud_springbboot.application.ports.in.ProductInputPort;
 import com.pratica.crud_springbboot.application.ports.out.ProductRepositoryOutputPort;
 import com.pratica.crud_springbboot.infrastructure.utils.ProductMapper;
@@ -19,13 +19,9 @@ public class ProductService implements ProductInputPort {
   }
 
   @Override
-  public ProductListResponse getAllProducts() {
+  public List<ProductResponse> getAllProducts() {
     return productRepositoryOutputPort.getAllProducts().stream()
-            .map(productMapper::toProductListResponse )
-            .findFirst()
-            .orElse(ProductListResponse.builder()
-                    .data(List.of())
-                    .error("No se encontraron productos")
-                    .build());
+            .map(productMapper::toProductResponse)
+            .toList();
   }
 }

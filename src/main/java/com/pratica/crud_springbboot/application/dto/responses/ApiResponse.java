@@ -1,17 +1,17 @@
 package com.pratica.crud_springbboot.application.dto.responses;
 
-import com.pratica.crud_springbboot.domain.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductListResponse {
-  List<ProductResponse> data;
-  String error;
+public class ApiResponse<T> {
+  private String code;
+  private String message;
+  private T data;
+  private MetaResponse meta;
 }

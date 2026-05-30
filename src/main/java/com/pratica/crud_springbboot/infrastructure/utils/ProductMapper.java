@@ -1,6 +1,9 @@
 package com.pratica.crud_springbboot.infrastructure.utils;
 
+import com.pratica.crud_springbboot.application.dto.responses.ApiResponse;
+import com.pratica.crud_springbboot.application.dto.responses.MetaResponse;
 import com.pratica.crud_springbboot.application.dto.responses.ProductListResponse;
+import com.pratica.crud_springbboot.application.dto.responses.ProductResponse;
 import com.pratica.crud_springbboot.domain.model.Product;
 import com.pratica.crud_springbboot.infrastructure.entity.ProductEntity;
 import org.springframework.stereotype.Component;
@@ -33,12 +36,30 @@ public class ProductMapper {
     return product;
   }
 
-  public ProductListResponse toProductListResponse (Product product) {
-    ProductListResponse response = new ProductListResponse();
-    return ProductListResponse.builder()
-            .data(List.of(product))
-            .error(null)
-            .build();
+
+  public ProductResponse toProductResponse(Product product) {
+    return ProductResponse.builder()
+          .id(product.getId())
+          .nombre(product.getNombre())
+          .descripcion(product.getDescripcion())
+          .precio(product.getPrecio())
+          .stock(product.getStock())
+          .categoria(product.getCategoria())
+          .fechaCreacion(product.getFechaCreacion())
+          .build();
   }
 
+  public ApiResponse<List<ProductResponse>> listProductResponseSuccess(List<ProductResponse> products) {
+    return ApiResponse.<List<ProductResponse>>builder()
+          .code("200")
+          .message(products.isEmpty() ? "No se encontraron productos" : "Productos obtenidos correctamente")
+          .data(products)
+          .meta(MetaResponse.builder()
+                .timestamp(java.time.LocalDateTime.now())
+                .totalRecords((long) products.size())
+                .limit(products.size())
+                .offset(0)
+                .build())
+          .build();
+  }
 }
